@@ -1,15 +1,15 @@
 #include <stdio.h>
-#include "pico/stdlib.h"
-#include "hardware/adc.h"
-#include "hardware/pwm.h"
-#include "inc/ssd1306.h"
-#include "inc/font.h"
-#include "hardware/i2c.h"
+#include "pico/stdlib.h"        // Biblioteca padrão para microcontrolador Raspberry Pi Pico
+#include "hardware/adc.h"       // Biblioteca para controle do ADC (Conversor Analógico para Digital)
+#include "hardware/pwm.h"       // Biblioteca para controle do PWM (modulação por largura de pulso)
+#include "inc/ssd1306.h"        // Biblioteca para controle de display OLED SSD1306
+#include "inc/font.h"           // Biblioteca para fontes para o display OLED
+#include "hardware/i2c.h"       // Biblioteca para controle de I2C (protocolo de comunicação)
 
-#define I2C_PORT i2c1
-#define I2C_SDA_PIN 14
-#define I2C_SCL_PIN 15
-#define DISPLAY_ADDRESS 0x3C // Endereço do display SSD1306
+#define I2C_PORT i2c1            // Define o barramento I2C como i2c1
+#define I2C_SDA_PIN 14           // Define o pino 14 como SDA (dados) do I2C
+#define I2C_SCL_PIN 15           // Define o pino 15 como SCL (clock) do I2C
+#define DISPLAY_ADDRESS 0x3C     // Endereço do display SSD1306 no barramento I2C
 
 // Variáveis para controle de tempo e estados
 static volatile uint32_t last_time = 0;
@@ -17,24 +17,25 @@ static volatile uint32_t last_time1 = 0;
 static volatile uint32_t last_time2 = 0;
 static volatile uint8_t counter = 0;
 
-// Estados de LEDs e PWM
-bool green_led_on = false;
-bool pwm_enabled = true;
+// Variáveis para controle dos LEDs e PWM
+bool green_led_on = false;   // Estado do LED verde
+bool pwm_enabled = true;      // Habilitação do PWM
 
-// Definições de pinos e constantes para o joystick, botões e LEDs
-const int joystick_x_pin = 26;
-const int joystick_y_pin = 27;
-const int adc_channel_x = 0;
-const int adc_channel_y = 1;
-const int joystick_button_pin = 22;
-const int red_led_pin = 13;
-const int green_led_pin = 11;
-const int blue_led_pin = 12;
-const int button_22_pin = 22;
-const int button_a_pin = 5;
-const int button_b_pin = 6;
-const float pwm_divider = 40.0;
-const uint16_t pwm_period = 500;
+// Definições dos pinos e constantes para o joystick, botões e LEDs
+const int joystick_x_pin = 26;   // Pino para o eixo X do joystick
+const int joystick_y_pin = 27;   // Pino para o eixo Y do joystick
+const int adc_channel_x = 0;     // Canal ADC para o eixo X
+const int adc_channel_y = 1;     // Canal ADC para o eixo Y
+const int joystick_button_pin = 22; // Pino para o botão do joystick
+const int red_led_pin = 13;       // Pino para o LED vermelho
+const int green_led_pin = 11;     // Pino para o LED verde
+const int blue_led_pin = 12;      // Pino para o LED azul
+const int button_22_pin = 22;     // Pino do botão 22
+const int button_a_pin = 5;       // Pino do botão A
+const int button_b_pin = 6;       // Pino do botão B
+const float pwm_divider = 40.0;   // Divisor do PWM
+const uint16_t pwm_period = 500;  // Período do PWM
+
 
 // Variáveis para controle do PWM dos LEDs
 uint pwm_slice_red_led;
