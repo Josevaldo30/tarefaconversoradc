@@ -78,3 +78,5 @@ setup_i2c(): Configura a comunicação I2C para o display OLED.
 button_callback(): Função de interrupção para gerenciar o comportamento dos botões.
 Interrupções:
 O código usa interrupções para detectar quando os botões são pressionados, alterando o estado dos LEDs e alterando a forma exibida no display OLED.
+
+link do video disponível no youtube: https://youtu.be/c4YmkiAY8Ds
